@@ -34,7 +34,7 @@ filter(doc, fillables)
 
 // OR via guard:
 const guard = ['items.discard']
-filter(doc, [], fillables)
+filter(doc, [], guard)
 // returns {items: {keep: '📌'}}
 ```
 
