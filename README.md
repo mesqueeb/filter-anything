@@ -38,4 +38,22 @@ filter(doc, [], guard)
 // returns {items: {keep: '📌'}}
 ```
 
+## Wildcards
+
+Yes! You can also work with wildcards by using `*` in the path.
+
+```js
+const doc = {
+  '123': {keep: '📌', discard: '✂️'},
+  '456': {keep: '📌', discard: '✂️'}
+}
+// use wildcard *
+const guard = ['*.discard']
+filter(doc, [], guard)
+// returns {
+//   '123': {keep: '📌'},
+//   '456': {keep: '📌'}
+// }
+```
+
 Feel free to open issues for any requests, questions or bugs!

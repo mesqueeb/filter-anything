@@ -1,4 +1,5 @@
 import { isPlainObject } from 'is-what'
+import pathsAreEqual from './pathsAreEqual'
 
 type AnyObject = {[key: string]: any}
 
@@ -17,7 +18,7 @@ function recursiveFilter (
     if (path) path += '.'
     path += key
     // check guard regardless
-    if (guard.includes(path)) {
+    if (guard.some(guardPath => pathsAreEqual(path, guardPath))) {
       return carry
     }
     const value = obj[key]
@@ -29,7 +30,7 @@ function recursiveFilter (
         const fillableDepth = fillable.split('.').length
         const fillableUpToNow = fillable.split('.').slice(0, pathDepth).join('.')
         const pathUpToFillableDepth = path.split('.').slice(0, fillableDepth).join('.')
-        if (fillableUpToNow === pathUpToFillableDepth) passed = true
+        if (pathsAreEqual(pathUpToFillableDepth, fillableUpToNow)) passed = true
       })
       // there's not one fillable that allows up to now
       if (!passed) return carry

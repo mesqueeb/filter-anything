@@ -53,4 +53,10 @@ export default [
       {file: 'dist/index.esm.js', format: 'esm'},
     ],
   }),
+  defaults({
+    input: 'src/pathsAreEqual.ts',
+    output: [
+      {file: 'test/helpers/pathsAreEqual.cjs.js', format: 'cjs'},
+    ],
+  }),
 ]

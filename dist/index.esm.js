@@ -1,5 +1,16 @@
 import { isPlainObject } from 'is-what';
 
+function pathsAreEqual (path, wildcardPath) {
+    var wildcardPathPieces = wildcardPath.split('.');
+    var pathWithWildcards = path.split('.')
+        .reduce(function (carry, piece, index) {
+        var add = (wildcardPathPieces[index] === '*') ? '*' : piece;
+        carry.push(add);
+        return carry;
+    }, []).join('.');
+    return (pathWithWildcards === wildcardPath);
+}
+
 function recursiveFilter(obj, fillables, guard, pathUntilNow) {
     if (pathUntilNow === void 0) { pathUntilNow = ''; }
     if (!isPlainObject(obj)) {
@@ -12,7 +23,7 @@ function recursiveFilter(obj, fillables, guard, pathUntilNow) {
             path += '.';
         path += key;
         // check guard regardless
-        if (guard.includes(path)) {
+        if (guard.some(function (guardPath) { return pathsAreEqual(path, guardPath); })) {
             return carry;
         }
         var value = obj[key];
@@ -24,7 +35,7 @@ function recursiveFilter(obj, fillables, guard, pathUntilNow) {
                 var fillableDepth = fillable.split('.').length;
                 var fillableUpToNow = fillable.split('.').slice(0, pathDepth).join('.');
                 var pathUpToFillableDepth = path.split('.').slice(0, fillableDepth).join('.');
-                if (fillableUpToNow === pathUpToFillableDepth)
+                if (pathsAreEqual(pathUpToFillableDepth, fillableUpToNow))
                     passed_1 = true;
             });
             // there's not one fillable that allows up to now

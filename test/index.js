@@ -1,4 +1,5 @@
 import filter from '../dist/index.cjs'
+import pathsAreEqual from './helpers/pathsAreEqual.cjs'
 import test from 'ava'
 
 test('check fillables FLAT', t => {
@@ -60,9 +61,14 @@ test('check guard NESTED', t => {
   t.deepEqual(res, {secondProp: true})
 })
 
-test('check fillables NESTED - multiple fillable & guard', t => {
+test('check NESTED - multiple fillable & guard', t => {
   let res, doc, fillables, guard
-  doc = {nested: {fillables: {yes: 0, no: 0}}, secondProp: {yes: true, no: false}, guardedTop: true, guardedDeep: {yes: true, no: true}}
+  doc = {
+    nested: {fillables: {yes: 0, no: 0}},
+    secondProp: {yes: true, no: false},
+    guardedTop: true,
+    guardedDeep: {yes: true, no: true}
+  }
   fillables = ['nested.fillables.yes', 'secondProp.yes', 'guardedTop', 'guardedDeep']
   guard = ['guardedTop', 'guardedDeep.yes']
   res = filter(doc, fillables, guard)
@@ -73,4 +79,36 @@ test('check fillables NESTED - multiple fillable & guard', t => {
   fillables = ['nested', 'secondProp.yes', 'guardedTop', 'guardedDeep']
   res = filter(doc, fillables, guard)
   t.deepEqual(res, {nested: {fillables: {yes: 0, no: 0}}, secondProp: {yes: true}, guardedDeep: {no: true}})
+})
+
+test('check NESTED wildcards', t => {
+  let res, doc, fillables, guard
+  doc = {
+    fillables: {
+      '123': {yes: true, no: false},
+      '456': {yes: true, no: false},
+    },
+    guarded: {
+      '123': {yes: true, no: false},
+      '456': {yes: true, no: false},
+    }
+  }
+  fillables = ['fillables.*.yes', 'guarded']
+  guard = ['guarded.*.yes']
+  res = filter(doc, fillables, guard)
+  t.deepEqual(res, {
+    fillables: {
+      '123': {yes: true},
+      '456': {yes: true},
+    },
+    guarded: {
+      '123': {no: false},
+      '456': {no: false},
+    }
+  })
+})
+
+test('pathsAreEqual', t => {
+  t.is(pathsAreEqual('bob', '*'), true)
+  t.is(pathsAreEqual('bob.and.alice', 'bob.*.alice'), true)
 })
