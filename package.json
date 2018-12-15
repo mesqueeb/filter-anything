@@ -1,0 +1,40 @@
+{
+  "name": "filter-anything",
+  "version": "1.0.0",
+  "description": "A simple integration of \"fillables\" and \"guard\" filtering on an object",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "typings": "types/index.d.ts",
+  "scripts": {
+    "test": "ava test",
+    "rollup": "rollup -c build/rollup.js",
+    "build": "npm run rollup && npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mesqueeb/filter-anything.git"
+  },
+  "keywords": [
+    "fillables",
+    "guard",
+    "filter"
+  ],
+  "author": "Luca Ban - Mesqueeb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mesqueeb/filter-anything/issues"
+  },
+  "homepage": "https://github.com/mesqueeb/filter-anything#readme",
+  "devDependencies": {
+    "@ava/babel-preset-stage-4": "^2.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "ava": "^1.0.1",
+    "rollup": "^0.67.4",
+    "rollup-plugin-typescript2": "^0.18.1",
+    "typescript": "^3.2.2"
+  },
+  "dependencies": {
+    "is-what": "^3.1.1"
+  }
+}

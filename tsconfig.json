@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "./types/",
+    "lib": [ "es7", "dom" ]
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
