@@ -4,15 +4,23 @@
 npm i filter-anything
 ```
 
-Filter objects on "fillables" and "guard". A simple & small integration.
+Filter out objects based on "fillables" and "guard". A simple & small integration.
 
 ## Motivation
 
 I created this package because I needed to filter on fillables or guard and **have support for sub-properties**.
 
+## Meet the family
+
+- [filter-anything](https://github.com/mesqueeb/filter-anything)
+- [merge-anything](https://github.com/mesqueeb/merge-anything)
+- [find-and-replace-anything](https://github.com/mesqueeb/find-and-replace-anything)
+- copy-anything (WIP)
+- [is-what](https://github.com/mesqueeb/is-what)
+
 ## Usage
 
-You can filter out any prop on an object based on fillables or guard.
+You can filter out any prop in an object based on fillables or guard.
 
 - Fillables: Array of keys - the props which may stay
   - 0 fillables = all props stay
@@ -20,11 +28,31 @@ You can filter out any prop on an object based on fillables or guard.
 - Guard: Array of keys - the props which should be removed
   - adding any prop here will make sure it's removed
 
-In the example below we want to get rid of the nested property called "discard".
+You can use it by doing `filter(object, fillables, guard)` and it will return the `object` with just the props as per the fillables and/or guard!
+
+### Simple example
 
 ```js
 import filter from 'filter-anything'
 
+const doc = {keep1: 1, keep2: 1, keep3: 1, discard1: 1, discard2: 1}
+
+// via fillables
+const fillables = ['keep1', 'keep2', 'keep3']
+filter(doc, fillables)
+// returns {keep1: 1, keep2: 1, keep3: 1}
+
+// via guard
+const guard = ['discard1', 'discard2']
+filter(doc, [], guard)
+// returns {keep1: 1, keep2: 1, keep3: 1}
+```
+
+### Nested example
+
+In the example below we want to get rid of the nested property called "discard".
+
+```js
 const doc = {items: {keep: '📌', discard: '✂️'}}
 
 // via fillables:
