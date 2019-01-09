@@ -32,17 +32,19 @@ You can use it by doing `filter(object, fillables, guard)` and it will return th
 
 ### Simple example
 
+In the example below we want to get rid of the properties called "discard1" and "discard2".
+
 ```js
 import filter from 'filter-anything'
 
-const doc = {keep1: 1, keep2: 1, keep3: 1, discard1: 1, discard2: 1}
+const doc = {keep1: '📌', keep2: '🧷', keep3: '📎', discard1: '✂️', discard2: '🖍'}
 
 // via fillables
 const fillables = ['keep1', 'keep2', 'keep3']
 filter(doc, fillables)
 // returns {keep1: 1, keep2: 1, keep3: 1}
 
-// via guard
+// OR via guard
 const guard = ['discard1', 'discard2']
 filter(doc, [], guard)
 // returns {keep1: 1, keep2: 1, keep3: 1}
@@ -50,7 +52,7 @@ filter(doc, [], guard)
 
 ### Nested example
 
-In the example below we want to get rid of the nested property called "discard".
+In the example below we want to get rid of the **nested property** called "discard".
 
 ```js
 const doc = {items: {keep: '📌', discard: '✂️'}}
