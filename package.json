@@ -1,7 +1,7 @@
 {
   "name": "filter-anything",
   "version": "1.1.0",
-  "description": "A simple integration of \"fillables\" and \"guard\" filtering on an object",
+  "description": "A simple integration of \"fillables\" and \"guard\" filtering on the props of an object",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "typings": "types/index.d.ts",
@@ -17,7 +17,14 @@
   "keywords": [
     "fillables",
     "guard",
-    "filter"
+    "filter",
+    "wildcard",
+    "props-stay",
+    "filter-props",
+    "delete-props",
+    "guarded",
+    "guarded-props",
+    "filter-fields"
   ],
   "author": "Luca Ban - Mesqueeb",
   "license": "MIT",

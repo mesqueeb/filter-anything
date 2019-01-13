@@ -4,11 +4,11 @@
 npm i filter-anything
 ```
 
-Filter out objects based on "fillables" and "guard". A simple & small integration.
+Filter out object props based on "fillables" and "guard". A simple & small integration.
 
 ## Motivation
 
-I created this package because I needed to filter on fillables or guard and **have support for sub-properties**.
+I created this package because I needed to filter object props on fillables or guard and **have support for sub-properties**.
 
 ## Meet the family
 
