@@ -17,6 +17,7 @@ I created this package because I needed to filter on fillables or guard and **ha
 - [find-and-replace-anything 🎣](https://github.com/mesqueeb/find-and-replace-anything)
 - [compare-anything 🛰](https://github.com/mesqueeb/compare-anything)
 - [copy-anything 🎭](https://github.com/mesqueeb/copy-anything)
+- [flatten-anything 🏏](https://github.com/mesqueeb/flatten-anything)
 - [is-what 🙉](https://github.com/mesqueeb/is-what)
 
 ## Usage
