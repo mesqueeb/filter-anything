@@ -12,11 +12,12 @@ I created this package because I needed to filter on fillables or guard and **ha
 
 ## Meet the family
 
-- [filter-anything](https://github.com/mesqueeb/filter-anything)
-- [merge-anything](https://github.com/mesqueeb/merge-anything)
-- [find-and-replace-anything](https://github.com/mesqueeb/find-and-replace-anything)
-- copy-anything (WIP)
-- [is-what](https://github.com/mesqueeb/is-what)
+- [filter-anything ⚔️](https://github.com/mesqueeb/filter-anything)
+- [merge-anything 🥡](https://github.com/mesqueeb/merge-anything)
+- [find-and-replace-anything 🎣](https://github.com/mesqueeb/find-and-replace-anything)
+- [compare-anything 🛰](https://github.com/mesqueeb/compare-anything)
+- [copy-anything 🎭](https://github.com/mesqueeb/copy-anything)
+- [is-what 🙉](https://github.com/mesqueeb/is-what)
 
 ## Usage
 
