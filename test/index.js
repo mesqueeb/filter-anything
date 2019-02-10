@@ -108,6 +108,49 @@ test('check NESTED wildcards', t => {
   })
 })
 
+test('check custom class instances', t => {
+  let res, doc, fillables, guard
+  class A {
+    constructor (payload) {
+      this.isArrayHelper = true
+      this.payload = payload
+    }
+  }
+  let _1 = new A()
+  let _2 = new A()
+  t.is(_1 instanceof A, true)
+  t.is(_2 instanceof A, true)
+  doc = {
+    fillables: {
+      '123': {yes: _1, no: false},
+      '456': {yes: true, no: false},
+    },
+    guarded: {
+      '123': {yes: true, no: false},
+      '456': {yes: true, no: _2},
+    }
+  }
+  t.is(doc.fillables['123'].yes instanceof A, true)
+  t.is(doc.guarded['456'].no instanceof A, true)
+  fillables = ['fillables.*.yes', 'guarded']
+  guard = ['guarded.*.yes']
+  res = filter(doc, fillables, guard)
+  t.deepEqual(res, {
+    fillables: {
+      '123': {yes: _1},
+      '456': {yes: true},
+    },
+    guarded: {
+      '123': {no: false},
+      '456': {no: _2},
+    }
+  })
+  t.is(_1 instanceof A, true)
+  t.is(_2 instanceof A, true)
+  t.is(res.fillables['123'].yes instanceof A, true)
+  t.is(res.guarded['456'].no instanceof A, true)
+})
+
 test('pathsAreEqual', t => {
   t.is(pathsAreEqual('bob', '*'), true)
   t.is(pathsAreEqual('bob.and.alice', 'bob.*.alice'), true)
