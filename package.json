@@ -33,12 +33,9 @@
   },
   "homepage": "https://github.com/mesqueeb/filter-anything#readme",
   "devDependencies": {
-    "@ava/babel-preset-stage-4": "^2.0.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.3.2",
-    "@babel/preset-env": "^7.3.1",
     "ava": "^1.2.1",
     "rollup": "^0.67.4",
-    "rollup-plugin-typescript2": "^0.19.2",
+    "rollup-plugin-typescript2": "^0.19.3",
     "typescript": "^3.3.3333"
   },
   "dependencies": {
