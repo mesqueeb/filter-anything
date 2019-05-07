@@ -1,6 +1,6 @@
 {
   "name": "filter-anything",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A simple integration of \"fillables\" and \"guard\" filtering on the props of an object",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -33,10 +33,10 @@
   },
   "homepage": "https://github.com/mesqueeb/filter-anything#readme",
   "devDependencies": {
-    "ava": "^1.2.1",
+    "ava": "^1.4.1",
     "rollup": "^0.67.4",
-    "rollup-plugin-typescript2": "^0.19.3",
-    "typescript": "^3.3.3333"
+    "rollup-plugin-typescript2": "^0.21.0",
+    "typescript": "^3.4.5"
   },
   "dependencies": {
     "is-what": "^3.2.1"
