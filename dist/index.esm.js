@@ -14,7 +14,6 @@ function pathsAreEqual (path, wildcardPath) {
 function recursiveFilter(obj, fillables, guard, pathUntilNow) {
     if (pathUntilNow === void 0) { pathUntilNow = ''; }
     if (!isPlainObject(obj)) {
-        console.log('obj → ', obj);
         return obj;
     }
     return Object.keys(obj).reduce(function (carry, key) {
@@ -33,8 +32,14 @@ function recursiveFilter(obj, fillables, guard, pathUntilNow) {
             fillables.forEach(function (fillable) {
                 var pathDepth = path.split('.').length;
                 var fillableDepth = fillable.split('.').length;
-                var fillableUpToNow = fillable.split('.').slice(0, pathDepth).join('.');
-                var pathUpToFillableDepth = path.split('.').slice(0, fillableDepth).join('.');
+                var fillableUpToNow = fillable
+                    .split('.')
+                    .slice(0, pathDepth)
+                    .join('.');
+                var pathUpToFillableDepth = path
+                    .split('.')
+                    .slice(0, fillableDepth)
+                    .join('.');
                 if (pathsAreEqual(pathUpToFillableDepth, fillableUpToNow))
                     passed_1 = true;
             });
