@@ -6,7 +6,7 @@
   "module": "dist/index.esm.js",
   "typings": "types/index.d.ts",
   "scripts": {
-    "test": "ava test",
+    "test": "ava",
     "rollup": "rollup -c build/rollup.js",
     "build": "npm run rollup && npm run test"
   },
@@ -40,5 +40,10 @@
   },
   "dependencies": {
     "is-what": "^3.4.0"
+  },
+  "ava": {
+    "compileEnhancements": false,
+    "extensions": ["ts"],
+    "helpers": ["**/helpers/**/*"]
   }
 }
