@@ -20,11 +20,11 @@ import typescript from 'rollup-plugin-typescript2'
 // ------------------------------------------------------------------------------------------
 const pkg = require('../package.json')
 const name = pkg.name
-const className = name.replace(/(^\w|-\w)/g, c => c.replace('-', '').toUpperCase())
+const className = name.replace(/(^\w|-\w)/g, c =>
+  c.replace('-', '').toUpperCase()
+)
 const external = Object.keys(pkg.dependencies || [])
-const plugins = [
-  typescript({useTsconfigDeclarationDir: true}),
-]
+const plugins = [typescript({ useTsconfigDeclarationDir: true })]
 
 // ------------------------------------------------------------------------------------------
 // Builds
@@ -37,10 +37,13 @@ function defaults (config) {
   }
   // defaults.output
   config.output = config.output.map(output => {
-    return Object.assign({
-      sourcemap: false,
-      name: className,
-    }, output)
+    return Object.assign(
+      {
+        sourcemap: false,
+        name: className
+      },
+      output
+    )
   })
   return Object.assign(defaults, config)
 }
@@ -49,14 +52,8 @@ export default [
   defaults({
     input: 'src/index.ts',
     output: [
-      {file: 'dist/index.cjs.js', format: 'cjs'},
-      {file: 'dist/index.esm.js', format: 'esm'},
-    ],
-  }),
-  defaults({
-    input: 'src/pathsAreEqual.ts',
-    output: [
-      {file: 'test/helpers/pathsAreEqual.cjs.js', format: 'cjs'},
-    ],
-  }),
+      { file: 'dist/index.cjs.js', format: 'cjs' },
+      { file: 'dist/index.esm.js', format: 'esm' }
+    ]
+  })
 ]

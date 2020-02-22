@@ -1,14 +1,16 @@
 {
   "name": "filter-anything",
-  "version": "1.1.5",
+  "version": "2.0.0",
+  "sideEffects": false,
   "description": "A simple integration of \"fillables\" and \"guard\" filtering on the props of an object",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "typings": "types/index.d.ts",
   "scripts": {
+    "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "test": "ava",
     "rollup": "rollup -c build/rollup.js",
-    "build": "npm run rollup && npm run test"
+    "build": "npm run lint && npm run lint && npm run test && npm run rollup"
   },
   "repository": {
     "type": "git",
@@ -32,18 +34,24 @@
     "url": "https://github.com/mesqueeb/filter-anything/issues"
   },
   "homepage": "https://github.com/mesqueeb/filter-anything#readme",
-  "devDependencies": {
-    "ava": "^2.4.0",
-    "rollup": "^1.27.13",
-    "rollup-plugin-typescript2": "^0.25.3",
-    "typescript": "^3.7.3"
-  },
   "dependencies": {
-    "is-what": "^3.4.0"
+    "is-what": "^3.6.0",
+    "ts-toolbelt": "^6.3.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.20.0",
+    "@typescript-eslint/parser": "^2.20.0",
+    "ava": "^3.3.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-tree-shaking": "^1.8.0",
+    "rollup": "^1.31.1",
+    "rollup-plugin-typescript2": "^0.25.3",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.2"
   },
   "ava": {
-    "compileEnhancements": false,
     "extensions": ["ts"],
-    "helpers": ["**/helpers/**/*"]
+    "require": ["ts-node/register"]
   }
 }

@@ -1,28 +1,31 @@
 import { isPlainObject } from 'is-what';
 
-function pathsAreEqual (path, wildcardPath) {
+function pathsAreEqual(path, wildcardPath) {
     var wildcardPathPieces = wildcardPath.split('.');
-    var pathWithWildcards = path.split('.')
+    var pathWithWildcards = path
+        .split('.')
         .reduce(function (carry, piece, index) {
-        var add = (wildcardPathPieces[index] === '*') ? '*' : piece;
+        var add = wildcardPathPieces[index] === '*' ? '*' : piece;
         carry.push(add);
         return carry;
-    }, []).join('.');
-    return (pathWithWildcards === wildcardPath);
+    }, [])
+        .join('.');
+    return pathWithWildcards === wildcardPath;
 }
 
-function recursiveFilter(obj, fillables, guard, pathUntilNow) {
+function recursiveFilter(obj, fillables, guarded, pathUntilNow) {
     if (pathUntilNow === void 0) { pathUntilNow = ''; }
     if (!isPlainObject(obj)) {
         return obj;
     }
+    // @ts-ignore
     return Object.keys(obj).reduce(function (carry, key) {
         var path = pathUntilNow;
         if (path)
             path += '.';
         path += key;
         // check guard regardless
-        if (guard.some(function (guardPath) { return pathsAreEqual(path, guardPath); })) {
+        if (guarded.some(function (guardPath) { return pathsAreEqual(path, guardPath); })) {
             return carry;
         }
         var value = obj[key];
@@ -52,23 +55,60 @@ function recursiveFilter(obj, fillables, guard, pathUntilNow) {
             carry[key] = value;
             return carry;
         }
-        carry[key] = recursiveFilter(obj[key], fillables, guard, path);
+        carry[key] = recursiveFilter(obj[key], fillables, guarded, path);
         return carry;
     }, {});
 }
+
 /**
- * Checks all props of an object and deletes guarded and non-fillables.
+ * Returns a new object with only the props passed as fillables
  *
  * @export
  * @param {object} obj the target object to check
  * @param {string[]} [fillables=[]] an array of strings, with the props which should be allowed on returned object
- * @param {string[]} [guard=[]] an array of strings, with the props which should NOT be allowed on returned object
  * @returns {AnyObject} the cleaned object after deleting guard and non-fillables
  */
-function index (obj, fillables, guard) {
-    if (fillables === void 0) { fillables = []; }
-    if (guard === void 0) { guard = []; }
-    return recursiveFilter(obj, fillables, guard);
+function fillable(obj, fillables) {
+    // @ts-ignore
+    if (!fillables.length)
+        return {};
+    // @ts-ignore
+    return recursiveFilter(obj, fillables, []);
 }
+/**
+ * Returns a new object without guarded props
+ *
+ * @export
+ * @param {object} obj the target object to check
+ * @param {string[]} [guarded=[]] an array of strings, with the props which should NOT be allowed on returned object
+ * @returns {AnyObject} the cleaned object after deleting guard and non-fillables
+ */
+function guard(obj, guarded) {
+    // @ts-ignore
+    return recursiveFilter(obj, [], guarded);
+}
+// /**
+//  * Returns a new object but with only the props passed as fillables and/or without guarded props
+//  *
+//  * @export
+//  * @param {object} obj the target object to check
+//  * @param {string[]} fillables array of strings, with the props which should be allowed on returned object
+//  * @param {string[]} [guarded=[]] an array of strings, with the props which should NOT be allowed on returned object
+//  * @returns {AnyObject} the cleaned object after deleting guard and non-fillables
+//  */
+// export function filter<
+//   T extends object,
+//   KeyToKeep extends string,
+//   KeyToDelete extends string,
+//   KeysToKeep extends KeyToKeep[],
+//   KeysToDelete extends KeyToDelete[]
+// > (
+//   obj: T,
+//   fillables: KeysToKeep,
+//   guarded?: KeysToDelete
+// ) {
+//   // @ts-ignore
+//   return recursiveFilter(obj, fillables, guarded)
+// }
 
-export default index;
+export { fillable, guard };

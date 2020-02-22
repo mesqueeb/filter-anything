@@ -8,7 +8,12 @@ Filter out object props based on "fillables" and "guard". A simple & small integ
 
 ## Motivation
 
-I created this package because I needed to filter object props on fillables or guard and **have support for sub-properties**.
+I created this package because I needed:
+
+- be able to filter out object props based on just what we need - aka "fillables"
+- be able to filter out object props based on what we don't need - aka "guarded" props
+- **supports for nested properties**
+- supports wildcards `*` for nested properties
 
 ## Meet the family
 
@@ -22,53 +27,54 @@ I created this package because I needed to filter object props on fillables or g
 
 ## Usage
 
-You can filter out any prop in an object based on fillables or guard.
+### Fillable
 
-- Fillables: Array of keys - the props which may stay
-  - 0 fillables = all props stay
-  - 1 or more fillables = only those props stay (any prop not in fillables is removed)
-- Guard: Array of keys - the props which should be removed
-  - adding any prop here will make sure it's removed
-
-You can use it by doing `filter(object, fillables, guard)` and it will return the `object` with just the props as per the fillables and/or guard!
-
-### Simple example
-
-In the example below we want to get rid of the properties called "discard1" and "discard2".
+With `fillable` pass an array of keys of an object - the props which may stay.
 
 ```js
-import filter from 'filter-anything'
+import { fillable } from 'filter-anything'
 
-const doc = {keep1: '📌', keep2: '🧷', keep3: '📎', discard1: '✂️', discard2: '🖍'}
+const squirtle = { id: '007', name: 'Squirtle', type: 'water' }
 
-// via fillables
-const fillables = ['keep1', 'keep2', 'keep3']
-filter(doc, fillables)
-// returns {keep1: 1, keep2: 1, keep3: 1}
-
-// OR via guard
-const guard = ['discard1', 'discard2']
-filter(doc, [], guard)
-// returns {keep1: 1, keep2: 1, keep3: 1}
+const withoutId = fillable(squirtle, ['name', 'type'])
+// returns { name: 'Squirtle', type: 'water' }
 ```
 
-### Nested example
+### Guard
+
+With `guard` pass an array of keys of an object - the props which should be removed.
+
+```js
+import { guard } from 'filter-anything'
+
+const squirtle = { id: '007', name: 'Squirtle', type: 'water' }
+
+const withoutId = guard(squirtle, ['name', 'type'])
+// returns { name: 'Squirtle', type: 'water' }
+```
+
+### TypeScript
+
+TypeScript users will love this, because, as you can see, the result has the correct type automatically!
+
+![typescript example fillable](https://raw.githubusercontent.com/mesqueeb/filter-anything/master/.github/typescript-fillable.png)
+![typescript example guard](https://raw.githubusercontent.com/mesqueeb/filter-anything/master/.github/typescript-guard.png)
+
+### Nested props
 
 In the example below we want to get rid of the **nested property** called "discard".
 
 ```js
-const doc = {items: {keep: '📌', discard: '✂️'}}
+const doc = { items: { keep: '📌', discard: '✂️' } }
 
-// via fillables:
-const fillables = ['items.keep']
-filter(doc, fillables)
+fillable(doc, ['items.keep'])
 // returns {items: {keep: '📌'}}
 
-// OR via guard:
-const guard = ['items.discard']
-filter(doc, [], guard)
+guard(doc, ['items.discard'])
 // returns {items: {keep: '📌'}}
 ```
+
+> Please note that TypeScript users will need to cast the result when using nested props.
 
 ## Wildcards
 
@@ -76,16 +82,17 @@ Yes! You can also work with wildcards by using `*` in the path.
 
 ```js
 const doc = {
-  '123': {keep: '📌', discard: '✂️'},
-  '456': {keep: '📌', discard: '✂️'}
+  '123': { keep: '📌', discard: '✂️' },
+  '456': { keep: '📌', discard: '✂️' },
 }
 // use wildcard *
-const guard = ['*.discard']
-filter(doc, [], guard)
+guard(doc, ['*.discard'])
 // returns {
 //   '123': {keep: '📌'},
 //   '456': {keep: '📌'}
 // }
 ```
+
+> Please note that TypeScript users will need to cast the result when using wildcards props.
 
 Feel free to open issues for any requests, questions or bugs!

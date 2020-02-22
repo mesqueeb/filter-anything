@@ -1,1 +1,1 @@
-export default function (path: string, wildcardPath: string): boolean;
+export default function pathsAreEqual(path: string, wildcardPath: string): boolean;
