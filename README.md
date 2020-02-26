@@ -34,24 +34,24 @@ I created this package because I needed:
 With `pick` you pass an object and an array of keys of an object - **the props which may stay**.
 
 ```js
-import { fillable } from 'filter-anything'
+import { pick } from 'filter-anything'
 
 const squirtle = { id: '007', name: 'Squirtle', type: 'water' }
 
-const withoutId = fillable(squirtle, ['name', 'type'])
+const withoutId = pick(squirtle, ['name', 'type'])
 // returns { name: 'Squirtle', type: 'water' }
 ```
 
-### Guard
+### Omit
 
-With `guard` you pass an object and an array of keys of an object - the props which should be removed.
+With `omit` you pass an object and an array of keys of an object - the props which should be removed.
 
 ```js
-import { guard } from 'filter-anything'
+import { omit } from 'filter-anything'
 
 const squirtle = { id: '007', name: 'Squirtle', type: 'water' }
 
-const withoutId = guard(squirtle, ['name', 'type'])
+const withoutId = omit(squirtle, ['name', 'type'])
 // returns { name: 'Squirtle', type: 'water' }
 ```
 
