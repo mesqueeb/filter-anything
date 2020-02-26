@@ -4,16 +4,18 @@
 npm i filter-anything
 ```
 
-Filter out object props based on "fillables" and "guard". A simple & small integration.
+An implementation that filters out object props like the TypeScript "pick" and "omit".
+In the Laravel world, this is also called "fillables" and "guard".
 
 ## Motivation
 
 I created this package because I needed:
 
-- be able to filter out object props based on just what we need - aka "fillables"
-- be able to filter out object props based on what we don't need - aka "guarded" props
+- be able to filter out object props based on just what we need - aka "pick" props
+- be able to filter out object props based on what we don't need - aka "omit" props
 - **supports for nested properties**
 - supports wildcards `*` for nested properties
+- the return type must be TypeScript supported! (see screenshots below)
 
 ## Meet the family
 
@@ -27,9 +29,9 @@ I created this package because I needed:
 
 ## Usage
 
-### Fillable
+### Pick
 
-With `fillable` pass an array of keys of an object - the props which may stay.
+With `pick` you pass an object and an array of keys of an object - **the props which may stay**.
 
 ```js
 import { fillable } from 'filter-anything'
@@ -42,7 +44,7 @@ const withoutId = fillable(squirtle, ['name', 'type'])
 
 ### Guard
 
-With `guard` pass an array of keys of an object - the props which should be removed.
+With `guard` you pass an object and an array of keys of an object - the props which should be removed.
 
 ```js
 import { guard } from 'filter-anything'
@@ -53,12 +55,16 @@ const withoutId = guard(squirtle, ['name', 'type'])
 // returns { name: 'Squirtle', type: 'water' }
 ```
 
+### Aliases
+
+`pick()` and `omit()` can also be imported with the names `fillable()` and `guard()`. This pays homage to my history with Laravel. 😉
+
 ### TypeScript
 
 TypeScript users will love this, because, as you can see, the result has the correct type automatically!
 
-![typescript example fillable](https://raw.githubusercontent.com/mesqueeb/filter-anything/master/.github/typescript-fillable.png)
-![typescript example guard](https://raw.githubusercontent.com/mesqueeb/filter-anything/master/.github/typescript-guard.png)
+![typescript example pick](https://raw.githubusercontent.com/mesqueeb/filter-anything/master/.github/typescript-pick.png)
+![typescript example omit](https://raw.githubusercontent.com/mesqueeb/filter-anything/master/.github/typescript-omit.png)
 
 ### Nested props
 
@@ -67,10 +73,10 @@ In the example below we want to get rid of the **nested property** called "disca
 ```js
 const doc = { items: { keep: '📌', discard: '✂️' } }
 
-fillable(doc, ['items.keep'])
+pick(doc, ['items.keep'])
 // returns {items: {keep: '📌'}}
 
-guard(doc, ['items.discard'])
+omit(doc, ['items.discard'])
 // returns {items: {keep: '📌'}}
 ```
 
@@ -86,7 +92,7 @@ const doc = {
   '456': { keep: '📌', discard: '✂️' },
 }
 // use wildcard *
-guard(doc, ['*.discard'])
+omit(doc, ['*.discard'])
 // returns {
 //   '123': {keep: '📌'},
 //   '456': {keep: '📌'}

@@ -65,32 +65,38 @@ function recursiveFilter(obj, fillables, guarded, pathUntilNow) {
 }
 
 /**
- * Returns a new object with only the props passed as fillables
+ * pick returns a new object with only the props you pick
  *
  * @export
- * @param {object} obj the target object to check
- * @param {string[]} [fillables=[]] an array of strings, with the props which should be allowed on returned object
- * @returns {AnyObject} the cleaned object after deleting guard and non-fillables
+ * @template T
+ * @template K
+ * @param {T} obj the target object to pick props from
+ * @param {K[]} keys the prop names you want to keep
+ * @returns {O.Pick<T, K>} a new object with just the picked props
  */
-function fillable(obj, fillables) {
+function pick(obj, keys) {
     // @ts-ignore
-    if (!fillables.length)
+    if (!keys.length)
         return {};
     // @ts-ignore
-    return recursiveFilter(obj, fillables, []);
+    return recursiveFilter(obj, keys, []);
 }
+var fillable = pick;
 /**
- * Returns a new object without guarded props
+ * omit returns a new object without the props you omit
  *
  * @export
- * @param {object} obj the target object to check
- * @param {string[]} [guarded=[]] an array of strings, with the props which should NOT be allowed on returned object
- * @returns {AnyObject} the cleaned object after deleting guard and non-fillables
+ * @template T
+ * @template K
+ * @param {T} obj the target object to omit props from
+ * @param {K[]} keys the prop names you want to omit
+ * @returns {O.Omit<T, K>} a new object without the omitted props
  */
-function guard(obj, guarded) {
+function omit(obj, keys) {
     // @ts-ignore
-    return recursiveFilter(obj, [], guarded);
+    return recursiveFilter(obj, [], keys);
 }
+var guard = omit;
 // /**
 //  * Returns a new object but with only the props passed as fillables and/or without guarded props
 //  *
@@ -117,3 +123,5 @@ function guard(obj, guarded) {
 
 exports.fillable = fillable;
 exports.guard = guard;
+exports.omit = omit;
+exports.pick = pick;
