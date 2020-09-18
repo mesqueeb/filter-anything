@@ -12,6 +12,7 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/ban-ts-ignore': 'off',
-    'tree-shaking/no-side-effects-in-initialization': 'error'
+    'tree-shaking/no-side-effects-in-initialization': 'error',
+    '@typescript-eslint/ban-ts-comment': 'off'
   }
 }

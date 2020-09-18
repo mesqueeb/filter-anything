@@ -9,7 +9,7 @@ import { O } from 'ts-toolbelt';
  * @param {K[]} keys the prop names you want to keep
  * @returns {O.Pick<T, K>} a new object with just the picked props
  */
-export declare function pick<T extends object, K extends string>(obj: T, keys: K[]): O.Pick<T, K>;
+export declare function pick<T extends Record<string, any>, K extends string>(obj: T, keys: K[]): O.Pick<T, K>;
 export declare const fillable: typeof pick;
 /**
  * omit returns a new object without the props you omit
@@ -21,5 +21,5 @@ export declare const fillable: typeof pick;
  * @param {K[]} keys the prop names you want to omit
  * @returns {O.Omit<T, K>} a new object without the omitted props
  */
-export declare function omit<T extends object, K extends string>(obj: T, keys: K[]): O.Omit<T, K>;
+export declare function omit<T extends Record<string, any>, K extends string>(obj: T, keys: K[]): O.Omit<T, K>;
 export declare const guard: typeof omit;

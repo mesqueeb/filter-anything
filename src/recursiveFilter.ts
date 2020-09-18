@@ -2,7 +2,7 @@ import { isPlainObject } from 'is-what'
 import pathsAreEqual from './pathsAreEqual'
 
 export function recursiveFilter<
-  T extends object,
+  T extends Record<string, any>,
   KeysToKeep extends string[],
   KeysToDelete extends string[]
 > (obj: T, fillables: KeysToKeep, guarded: KeysToDelete, pathUntilNow = ''): T {
