@@ -38,7 +38,7 @@
   },
   "homepage": "https://github.com/mesqueeb/filter-anything#readme",
   "dependencies": {
-    "is-what": "^3.11.2",
+    "is-what": "^3.11.3",
     "ts-toolbelt": "8.0.7"
   },
   "devDependencies": {
