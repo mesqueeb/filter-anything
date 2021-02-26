@@ -22,7 +22,6 @@ function recursiveFilter(obj, fillables, guarded, pathUntilNow) {
     if (!isWhat.isPlainObject(obj)) {
         return obj;
     }
-    // @ts-ignore
     return Object.keys(obj).reduce(function (carry, key) {
         var path = pathUntilNow;
         if (path)

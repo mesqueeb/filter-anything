@@ -9,8 +9,7 @@ export function recursiveFilter<
   if (!isPlainObject(obj)) {
     return obj
   }
-  // @ts-ignore
-  return Object.keys(obj).reduce((carry, key) => {
+  return Object.keys(obj).reduce<Record<string, any>>((carry, key) => {
     let path = pathUntilNow
     if (path) path += '.'
     path += key
@@ -45,5 +44,5 @@ export function recursiveFilter<
     }
     carry[key] = recursiveFilter(obj[key], fillables, guarded, path)
     return carry
-  }, {})
+  }, {}) as T
 }

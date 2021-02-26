@@ -1,9 +1,12 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "lib": [ "es7", "dom" ],
+    "strict": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
     "declaration": true,
-    "declarationDir": "./types/",
-    "lib": [ "es7", "dom" ]
+    "declarationDir": "./types/"
   },
   "include": [
     "src/**/*",
