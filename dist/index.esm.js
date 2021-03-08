@@ -1,4 +1,4 @@
-import { isPlainObject } from 'is-what';
+import { isPlainObject, isFullArray } from 'is-what';
 
 function pathsAreEqual(path, wildcardPath) {
     var wildcardPathPieces = wildcardPath.split('.');
@@ -84,10 +84,8 @@ function recursivePick(obj, pickedKeys, pathUntilNow) {
  * @returns {O.Pick<T, K>} a new object with just the picked props
  */
 function pick(obj, keys) {
-    // @ts-ignore
-    if (!keys.length)
+    if (!isFullArray(keys))
         return {};
-    // @ts-ignore
     return recursivePick(obj, keys);
 }
 var fillable = pick;
@@ -102,7 +100,8 @@ var fillable = pick;
  * @returns {O.Omit<T, K>} a new object without the omitted props
  */
 function omit(obj, keys) {
-    // @ts-ignore
+    if (!isFullArray(keys))
+        return obj;
     return recursiveOmit(obj, keys);
 }
 var guard = omit;

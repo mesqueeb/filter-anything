@@ -88,10 +88,8 @@ function recursivePick(obj, pickedKeys, pathUntilNow) {
  * @returns {O.Pick<T, K>} a new object with just the picked props
  */
 function pick(obj, keys) {
-    // @ts-ignore
-    if (!keys.length)
+    if (!isWhat.isFullArray(keys))
         return {};
-    // @ts-ignore
     return recursivePick(obj, keys);
 }
 var fillable = pick;
@@ -106,7 +104,8 @@ var fillable = pick;
  * @returns {O.Omit<T, K>} a new object without the omitted props
  */
 function omit(obj, keys) {
-    // @ts-ignore
+    if (!isWhat.isFullArray(keys))
+        return obj;
     return recursiveOmit(obj, keys);
 }
 var guard = omit;

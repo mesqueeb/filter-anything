@@ -1,3 +1,4 @@
+import { isFullArray } from 'is-what'
 import { O, S, F, U } from 'ts-toolbelt'
 import { recursiveOmit } from './recursiveOmit'
 import { recursivePick } from './recursivePick'
@@ -16,10 +17,9 @@ export function pick<T extends Record<string, any>, K extends string>(
   obj: T,
   keys: F.AutoPath<T, K>[]
 ): U.Merge<O.P.Pick<T, S.Split<K, '.'>>> {
-  // @ts-ignore
-  if (!keys.length) return {}
-  // @ts-ignore
-  return recursivePick(obj, keys)
+  if (!isFullArray(keys)) return {} as any
+
+  return recursivePick(obj, keys) as any
 }
 
 export const fillable = pick
@@ -38,8 +38,9 @@ export function omit<T extends Record<string, any>, K extends string>(
   obj: T,
   keys: F.AutoPath<T, K>[]
 ): U.Merge<O.P.Omit<T, S.Split<K, '.'>>> {
-  // @ts-ignore
-  return recursiveOmit(obj, keys)
+  if (!isFullArray(keys)) return obj as any
+
+  return recursiveOmit(obj, keys) as any
 }
 
 export const guard = omit
