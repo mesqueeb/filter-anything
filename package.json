@@ -5,7 +5,7 @@
   "description": "A simple (TypeScript) integration of \"pick\" and \"omit\" to filter props of an object",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
-  "typings": "types/index.d.ts",
+  "types": "types/index.d.ts",
   "scripts": {
     "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "test": "ava",
