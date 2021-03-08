@@ -17,48 +17,62 @@ function pathsAreEqual(path, wildcardPath) {
     return pathWithWildcards === wildcardPath;
 }
 
-function recursiveFilter(obj, fillables, guarded, pathUntilNow) {
+function recursiveOmit(obj, omittedKeys, pathUntilNow) {
     if (pathUntilNow === void 0) { pathUntilNow = ''; }
     if (!isWhat.isPlainObject(obj)) {
         return obj;
     }
-    return Object.keys(obj).reduce(function (carry, key) {
+    return Object.entries(obj).reduce(function (carry, _a) {
+        var key = _a[0], value = _a[1];
         var path = pathUntilNow;
         if (path)
             path += '.';
         path += key;
-        // check guard regardless
-        if (guarded.some(function (guardPath) { return pathsAreEqual(path, guardPath); })) {
+        if (omittedKeys.some(function (guardPath) { return pathsAreEqual(path, guardPath); })) {
             return carry;
         }
-        var value = obj[key];
-        // check fillables up to this point
-        if (fillables.length) {
-            var passed_1 = false;
-            fillables.forEach(function (fillable) {
-                var pathDepth = path.split('.').length;
-                var fillableDepth = fillable.split('.').length;
-                var fillableUpToNow = fillable
-                    .split('.')
-                    .slice(0, pathDepth)
-                    .join('.');
-                var pathUpToFillableDepth = path
-                    .split('.')
-                    .slice(0, fillableDepth)
-                    .join('.');
-                if (pathsAreEqual(pathUpToFillableDepth, fillableUpToNow))
-                    passed_1 = true;
-            });
-            // there's not one fillable that allows up to now
-            if (!passed_1)
-                return carry;
-        }
-        // no fillables or fillables up to now allow it
+        // no further recursion needed
         if (!isWhat.isPlainObject(value)) {
             carry[key] = value;
             return carry;
         }
-        carry[key] = recursiveFilter(obj[key], fillables, guarded, path);
+        carry[key] = recursiveOmit(obj[key], omittedKeys, path);
+        return carry;
+    }, {});
+}
+
+function recursivePick(obj, pickedKeys, pathUntilNow) {
+    if (pathUntilNow === void 0) { pathUntilNow = ''; }
+    if (!isWhat.isPlainObject(obj)) {
+        return obj;
+    }
+    return Object.entries(obj).reduce(function (carry, _a) {
+        var key = _a[0], value = _a[1];
+        var path = pathUntilNow;
+        if (path)
+            path += '.';
+        path += key;
+        // check pickedKeys up to this point
+        if (pickedKeys.length) {
+            var passed_1 = false;
+            pickedKeys.forEach(function (pickedKey) {
+                var pathDepth = path.split('.').length;
+                var pickedKeyDepth = pickedKey.split('.').length;
+                var pickedKeyUpToNow = pickedKey.split('.').slice(0, pathDepth).join('.');
+                var pathUpToPickedKeyDepth = path.split('.').slice(0, pickedKeyDepth).join('.');
+                if (pathsAreEqual(pathUpToPickedKeyDepth, pickedKeyUpToNow))
+                    passed_1 = true;
+            });
+            // there's not one pickedKey that allows up to now
+            if (!passed_1)
+                return carry;
+        }
+        // no further recursion needed
+        if (!isWhat.isPlainObject(value)) {
+            carry[key] = value;
+            return carry;
+        }
+        carry[key] = recursivePick(obj[key], pickedKeys, path);
         return carry;
     }, {});
 }
@@ -78,7 +92,7 @@ function pick(obj, keys) {
     if (!keys.length)
         return {};
     // @ts-ignore
-    return recursiveFilter(obj, keys, []);
+    return recursivePick(obj, keys);
 }
 var fillable = pick;
 /**
@@ -93,32 +107,9 @@ var fillable = pick;
  */
 function omit(obj, keys) {
     // @ts-ignore
-    return recursiveFilter(obj, [], keys);
+    return recursiveOmit(obj, keys);
 }
 var guard = omit;
-// /**
-//  * Returns a new object but with only the props passed as fillables and/or without guarded props
-//  *
-//  * @export
-//  * @param {object} obj the target object to check
-//  * @param {string[]} fillables array of strings, with the props which should be allowed on returned object
-//  * @param {string[]} [guarded=[]] an array of strings, with the props which should NOT be allowed on returned object
-//  * @returns {AnyObject} the cleaned object after deleting guard and non-fillables
-//  */
-// export function filter<
-//   T extends object,
-//   KeyToKeep extends string,
-//   KeyToDelete extends string,
-//   KeysToKeep extends KeyToKeep[],
-//   KeysToDelete extends KeyToDelete[]
-// > (
-//   obj: T,
-//   fillables: KeysToKeep,
-//   guarded?: KeysToDelete
-// ) {
-//   // @ts-ignore
-//   return recursiveFilter(obj, fillables, guarded)
-// }
 
 exports.fillable = fillable;
 exports.guard = guard;
