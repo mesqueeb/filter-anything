@@ -1,5 +1,8 @@
 # Filter anything ⚔️
 
+<a href="https://www.npmjs.com/package/filter-anything"><img src="https://img.shields.io/npm/v/filter-anything.svg" alt="Total Downloads"></a>
+<a href="https://www.npmjs.com/package/filter-anything"><img src="https://img.shields.io/npm/dw/filter-anything.svg" alt="Latest Stable Version"></a>
+
 ```
 npm i filter-anything
 ```
