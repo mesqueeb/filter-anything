@@ -35,6 +35,7 @@
     "filter-fields"
   ],
   "author": "Luca Ban - Mesqueeb",
+  "funding": "https://github.com/sponsors/mesqueeb",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mesqueeb/filter-anything/issues"
