@@ -6,7 +6,7 @@ test('1', () => {
 
   const withoutId = pick(squirtle, ['name', 'type'])
 
-  t.deepEqual(withoutId, { name: 'Squirtle', type: 'water' })
+  expect(withoutId).toEqual({ name: 'Squirtle', type: 'water' })
 })
 
 test('2', () => {
@@ -14,5 +14,5 @@ test('2', () => {
 
   const withoutId = omit(squirtle, ['id'])
 
-  t.deepEqual(withoutId, { name: 'Squirtle', type: 'water' })
+  expect(withoutId).toEqual({ name: 'Squirtle', type: 'water' })
 })
