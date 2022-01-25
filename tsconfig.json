@@ -1,15 +1,15 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "lib": [ "es7", "dom" ],
+    "module": "esnext",
+    "target": "es2019",
+    "lib": ["esnext", "DOM"],
     "strict": true,
+    "moduleResolution": "node",
     "isolatedModules": true,
     "esModuleInterop": true,
     "declaration": true,
-    "declarationDir": "./types/"
+    "declarationDir": "./dist/types/"
   },
-  "include": [
-    "src/**/*",
-    "test/**/*"
-  ]
+  "include": ["src/**/*", "test/**/*"]
 }
