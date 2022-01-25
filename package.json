@@ -51,7 +51,7 @@
   },
   "homepage": "https://github.com/mesqueeb/filter-anything#readme",
   "dependencies": {
-    "is-what": "^4.1.1",
+    "is-what": "^3.14.1",
     "ts-toolbelt": "^9.6.0"
   },
   "devDependencies": {
@@ -70,7 +70,7 @@
   },
   "np": {
     "yarn": false,
-    "branch": "production"
+    "branch": "legacy"
   },
   "eslintConfig": {
     "ignorePatterns": [
