@@ -5,11 +5,11 @@ Object.defineProperty(exports, '__esModule', { value: true });
 var isWhat = require('is-what');
 
 function pathsAreEqual(path, wildcardPath) {
-    var wildcardPathPieces = wildcardPath.split('.');
-    var pathWithWildcards = path
+    const wildcardPathPieces = wildcardPath.split('.');
+    const pathWithWildcards = path
         .split('.')
-        .reduce(function (carry, piece, index) {
-        var add = wildcardPathPieces[index] === '*' ? '*' : piece;
+        .reduce((carry, piece, index) => {
+        const add = wildcardPathPieces[index] === '*' ? '*' : piece;
         carry.push(add);
         return carry;
     }, [])
@@ -17,18 +17,16 @@ function pathsAreEqual(path, wildcardPath) {
     return pathWithWildcards === wildcardPath;
 }
 
-function recursiveOmit(obj, omittedKeys, pathUntilNow) {
-    if (pathUntilNow === void 0) { pathUntilNow = ''; }
+function recursiveOmit(obj, omittedKeys, pathUntilNow = '') {
     if (!isWhat.isPlainObject(obj)) {
         return obj;
     }
-    return Object.entries(obj).reduce(function (carry, _a) {
-        var key = _a[0], value = _a[1];
-        var path = pathUntilNow;
+    return Object.entries(obj).reduce((carry, [key, value]) => {
+        let path = pathUntilNow;
         if (path)
             path += '.';
         path += key;
-        if (omittedKeys.some(function (guardPath) { return pathsAreEqual(path, guardPath); })) {
+        if (omittedKeys.some((guardPath) => pathsAreEqual(path, guardPath))) {
             return carry;
         }
         // no further recursion needed
@@ -41,30 +39,28 @@ function recursiveOmit(obj, omittedKeys, pathUntilNow) {
     }, {});
 }
 
-function recursivePick(obj, pickedKeys, pathUntilNow) {
-    if (pathUntilNow === void 0) { pathUntilNow = ''; }
+function recursivePick(obj, pickedKeys, pathUntilNow = '') {
     if (!isWhat.isPlainObject(obj)) {
         return obj;
     }
-    return Object.entries(obj).reduce(function (carry, _a) {
-        var key = _a[0], value = _a[1];
-        var path = pathUntilNow;
+    return Object.entries(obj).reduce((carry, [key, value]) => {
+        let path = pathUntilNow;
         if (path)
             path += '.';
         path += key;
         // check pickedKeys up to this point
         if (pickedKeys.length) {
-            var passed_1 = false;
-            pickedKeys.forEach(function (pickedKey) {
-                var pathDepth = path.split('.').length;
-                var pickedKeyDepth = pickedKey.split('.').length;
-                var pickedKeyUpToNow = pickedKey.split('.').slice(0, pathDepth).join('.');
-                var pathUpToPickedKeyDepth = path.split('.').slice(0, pickedKeyDepth).join('.');
+            let passed = false;
+            pickedKeys.forEach((pickedKey) => {
+                const pathDepth = path.split('.').length;
+                const pickedKeyDepth = pickedKey.split('.').length;
+                const pickedKeyUpToNow = pickedKey.split('.').slice(0, pathDepth).join('.');
+                const pathUpToPickedKeyDepth = path.split('.').slice(0, pickedKeyDepth).join('.');
                 if (pathsAreEqual(pathUpToPickedKeyDepth, pickedKeyUpToNow))
-                    passed_1 = true;
+                    passed = true;
             });
             // there's not one pickedKey that allows up to now
-            if (!passed_1)
+            if (!passed)
                 return carry;
         }
         // no further recursion needed
@@ -92,7 +88,7 @@ function pick(obj, keys) {
         return {};
     return recursivePick(obj, keys);
 }
-var fillable = pick;
+const fillable = pick;
 /**
  * omit returns a new object without the props you omit
  *
@@ -108,7 +104,7 @@ function omit(obj, keys) {
         return obj;
     return recursiveOmit(obj, keys);
 }
-var guard = omit;
+const guard = omit;
 
 exports.fillable = fillable;
 exports.guard = guard;
