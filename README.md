@@ -41,7 +41,7 @@ import { pick } from 'filter-anything'
 
 const squirtle = { id: '007', name: 'Squirtle', type: 'water' }
 
-const withoutId = pick(squirtle, ['name', 'type'])
+const newObject = pick(squirtle, ['name', 'type'])
 // returns { name: 'Squirtle', type: 'water' }
 ```
 
@@ -54,7 +54,7 @@ import { omit } from 'filter-anything'
 
 const squirtle = { id: '007', name: 'Squirtle', type: 'water' }
 
-const withoutId = omit(squirtle, ['name', 'type'])
+const withoutId = omit(squirtle, ['id'])
 // returns { name: 'Squirtle', type: 'water' }
 ```
 
@@ -91,8 +91,8 @@ Yes! You can also work with wildcards by using `*` in the path.
 
 ```js
 const doc = {
-  '123': { keep: '📌', discard: '✂️' },
-  '456': { keep: '📌', discard: '✂️' },
+  123: { keep: '📌', discard: '✂️' },
+  456: { keep: '📌', discard: '✂️' },
 }
 // use wildcard *
 omit(doc, ['*.discard'])
