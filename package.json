@@ -1,6 +1,6 @@
 {
   "name": "filter-anything",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "sideEffects": false,
   "type": "module",
   "description": "A simple (TypeScript) integration of \"pick\" and \"omit\" to filter props of an object",
