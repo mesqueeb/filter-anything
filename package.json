@@ -55,22 +55,22 @@
   },
   "homepage": "https://github.com/mesqueeb/filter-anything#readme",
   "dependencies": {
-    "is-what": "^4.1.6",
+    "is-what": "^4.1.7",
     "ts-toolbelt": "^9.6.0"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.10.1",
-    "@typescript-eslint/parser": "^5.10.1",
+    "@typescript-eslint/eslint-plugin": "^5.13.0",
+    "@typescript-eslint/parser": "^5.13.0",
     "del-cli": "^4.0.1",
-    "eslint": "^8.7.0",
-    "eslint-config-prettier": "^8.3.0",
+    "eslint": "^8.10.0",
+    "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-tree-shaking": "^1.10.0",
     "np": "^7.6.0",
     "prettier": "^2.5.1",
-    "rollup": "^2.66.1",
-    "rollup-plugin-typescript2": "^0.31.1",
-    "typescript": "^4.5.5",
-    "vitest": "^0.2.3"
+    "rollup": "^2.68.0",
+    "rollup-plugin-typescript2": "^0.31.2",
+    "typescript": "^4.6.2",
+    "vitest": "^0.5.9"
   },
   "np": {
     "yarn": false,
