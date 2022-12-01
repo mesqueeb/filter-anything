@@ -1,7 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', { value: true });
-
 var isWhat = require('is-what');
 
 function pathsAreEqual(path, wildcardPath) {
