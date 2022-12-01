@@ -1,5 +1,5 @@
 import { isPlainObject } from 'is-what'
-import pathsAreEqual from './pathsAreEqual'
+import pathsAreEqual from './pathsAreEqual.js'
 
 export function recursivePick<T extends Record<string, any>, PickedKeys extends string[]>(
   obj: T,

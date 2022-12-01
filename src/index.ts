@@ -1,7 +1,7 @@
 import { isFullArray } from 'is-what'
 import { O, S, F, U } from 'ts-toolbelt'
-import { recursiveOmit } from './recursiveOmit'
-import { recursivePick } from './recursivePick'
+import { recursiveOmit } from './recursiveOmit.js'
+import { recursivePick } from './recursivePick.js'
 
 /**
  * pick returns a new object with only the props you pick

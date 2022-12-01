@@ -1,5 +1,5 @@
 import { isPlainObject } from 'is-what'
-import pathsAreEqual from './pathsAreEqual'
+import pathsAreEqual from './pathsAreEqual.js'
 
 export function recursiveOmit<T extends Record<string, any>, OmittedKeys extends string[]>(
   obj: T,
