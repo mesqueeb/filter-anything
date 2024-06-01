@@ -1,15 +1,15 @@
 import { isPlainObject } from 'is-what'
-import pathsAreEqual from './pathsAreEqual.js'
+import { pathsAreEqual } from './pathsAreEqual.js'
 
-export function recursiveOmit<T extends Record<string, any>, OmittedKeys extends string[]>(
+export function recursiveOmit<T extends { [key in string]: unknown }, OmittedKeys extends string[]>(
   obj: T,
   omittedKeys: OmittedKeys,
-  pathUntilNow = ''
+  pathUntilNow = '',
 ): T {
   if (!isPlainObject(obj)) {
     return obj
   }
-  return Object.entries(obj).reduce<Record<string, any>>((carry, [key, value]) => {
+  return Object.entries(obj).reduce<{ [key in string]: unknown }>((carry, [key, value]) => {
     let path = pathUntilNow
     if (path) path += '.'
     path += key
@@ -21,7 +21,7 @@ export function recursiveOmit<T extends Record<string, any>, OmittedKeys extends
       carry[key] = value
       return carry
     }
-    carry[key] = recursiveOmit(obj[key], omittedKeys, path)
+    carry[key] = recursiveOmit(obj[key] as any, omittedKeys, path)
     return carry
   }, {}) as T
 }

@@ -1,15 +1,15 @@
 import { isPlainObject } from 'is-what'
-import pathsAreEqual from './pathsAreEqual.js'
+import { pathsAreEqual } from './pathsAreEqual.js'
 
-export function recursivePick<T extends Record<string, any>, PickedKeys extends string[]>(
+export function recursivePick<T extends { [key in string]: unknown }, PickedKeys extends string[]>(
   obj: T,
   pickedKeys: PickedKeys,
-  pathUntilNow = ''
+  pathUntilNow = '',
 ): T {
   if (!isPlainObject(obj)) {
     return obj
   }
-  return Object.entries(obj).reduce<Record<string, any>>((carry, [key, value]) => {
+  return Object.entries(obj).reduce<{ [key in string]: unknown }>((carry, [key, value]) => {
     let path = pathUntilNow
     if (path) path += '.'
     path += key
@@ -31,7 +31,7 @@ export function recursivePick<T extends Record<string, any>, PickedKeys extends 
       carry[key] = value
       return carry
     }
-    carry[key] = recursivePick(obj[key], pickedKeys, path)
+    carry[key] = recursivePick(obj[key] as any, pickedKeys, path)
     return carry
   }, {}) as T
 }

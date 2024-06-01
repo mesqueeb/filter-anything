@@ -1,5 +1,4 @@
-import { F, U, O, S } from 'ts-toolbelt';
-
+import { F, O, S, U } from 'ts-toolbelt';
 /**
  * pick returns a new object with only the props you pick
  *
@@ -10,8 +9,10 @@ import { F, U, O, S } from 'ts-toolbelt';
  * @param {K[]} keys an array of prop names you want to keep - allows dot-notation for nested props, eg. `nested.prop` will keep just `{ nested: { prop: 1 } }`
  * @returns {O.Pick<T, K>} a new object with just the picked props
  */
-declare function pick<T extends Record<string, any>, K extends string>(obj: T, keys: F.AutoPath<T, K>[]): U.Merge<O.P.Pick<T, S.Split<K, '.'>>>;
-declare const fillable: typeof pick;
+export declare function pick<T extends {
+    [key in string]: unknown;
+}, K extends string>(obj: T, keys: F.AutoPath<T, K>[]): U.Merge<O.P.Pick<T, S.Split<K, '.'>>>;
+export declare const fillable: typeof pick;
 /**
  * omit returns a new object without the props you omit
  *
@@ -22,7 +23,7 @@ declare const fillable: typeof pick;
  * @param {K[]} keys the prop names you want to omit
  * @returns {O.Omit<T, K>} a new object without the omitted props
  */
-declare function omit<T extends Record<string, any>, K extends string>(obj: T, keys: F.AutoPath<T, K>[]): U.Merge<O.P.Omit<T, S.Split<K, '.'>>>;
-declare const guard: typeof omit;
-
-export { fillable, guard, omit, pick };
+export declare function omit<T extends {
+    [key in string]: unknown;
+}, K extends string>(obj: T, keys: F.AutoPath<T, K>[]): U.Merge<O.P.Omit<T, S.Split<K, '.'>>>;
+export declare const guard: typeof omit;

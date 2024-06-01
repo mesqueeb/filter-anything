@@ -1,4 +1,4 @@
-export default function pathsAreEqual (path: string, wildcardPath: string): boolean {
+export function pathsAreEqual(path: string, wildcardPath: string): boolean {
   const wildcardPathPieces = wildcardPath.split('.')
   const pathWithWildcards = path
     .split('.')

@@ -1,6 +1,6 @@
-import { pick, omit } from '../src/index'
-import pathsAreEqual from '../src/pathsAreEqual'
-import { test, expect } from 'vitest'
+import { expect, test } from 'vitest'
+import { omit, pick } from '../src/index.js'
+import { pathsAreEqual } from '../src/pathsAreEqual.js'
 
 test('check pick FLAT', () => {
   const doc = { name: 'n1', id: '1', filled: true, notfilled: false }
