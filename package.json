@@ -14,18 +14,18 @@
     "lint": "tsc --noEmit && eslint ./src",
     "test": "vitest run",
     "build": "del-cli dist && tsc",
-    "release": "npm run lint && npm run build && np"
+    "release": "pnpm run lint && pnpm run build && np"
   },
   "dependencies": {
-    "is-what": "^5.2.0",
+    "is-what": "^5.5.0",
     "ts-toolbelt": "^9.6.0"
   },
   "devDependencies": {
-    "@cycraft/eslint": "^0.4.3",
+    "@cycraft/eslint": "^0.4.4",
     "@cycraft/tsconfig": "^0.1.2",
-    "del-cli": "^6.0.0",
+    "del-cli": "^7.0.0",
     "np": "^12.1.1",
-    "vitest": "^3.0.6"
+    "vitest": "^5.0.1"
   },
   "files": [
     "dist"
@@ -55,5 +55,6 @@
     "url": "https://github.com/mesqueeb/filter-anything.git"
   },
   "homepage": "https://github.com/mesqueeb/filter-anything#readme",
-  "bugs": "https://github.com/mesqueeb/filter-anything/issues"
+  "bugs": "https://github.com/mesqueeb/filter-anything/issues",
+  "packageManager": "pnpm@11.27.0"
 }
