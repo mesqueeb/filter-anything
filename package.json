@@ -56,5 +56,5 @@
   },
   "homepage": "https://github.com/mesqueeb/filter-anything#readme",
   "bugs": "https://github.com/mesqueeb/filter-anything/issues",
-  "packageManager": "pnpm@11.27.0"
+  "packageManager": "pnpm@12.4.2"
 }
