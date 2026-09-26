@@ -1,8 +1,13 @@
 {
   "name": "@mesqueeb/filter-anything",
   "version": "4.0.5",
+  "license": "MIT",
   "exports": "./src/index.ts",
   "publish": {
-    "include": ["src/**", "README.md", "LICENSE"]
+    "include": [
+      "src/**",
+      "README.md",
+      "LICENSE"
+    ]
   }
 }
